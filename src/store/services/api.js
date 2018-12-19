@@ -10,6 +10,11 @@ const getSeries = name => {
     .then(response => response.data);
 };
 
+const getLastEpisode = id => {
+  return api.get(`/episodes/${id}`).then(response => response.data);
+};
+
 export default {
-  getSeries
+  getSeries,
+  getLastEpisode
 };

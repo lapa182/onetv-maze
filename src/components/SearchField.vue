@@ -1,5 +1,10 @@
 <template>
-  <input type="text" :placeholder="placeholder" @keyup.enter="triggerSearch" />
+  <input
+    type="text"
+    :placeholder="placeholder"
+    @keyup.enter="triggerSearch"
+    class="input"
+  />
 </template>
 
 <script>
@@ -15,6 +20,7 @@ export default {
   methods: {
     triggerSearch(event) {
       this.$store.dispatch("fetchSeries", event.currentTarget.value);
+      event.currentTarget.value = "";
     }
   }
 };

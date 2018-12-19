@@ -32,9 +32,16 @@ export default new Vuex.Store({
       commit("SET_LOADING", true);
 
       try {
-        const list = await api.getSeries(params);
+        let series = await api.getSeries(params);
+        const lastEpisode = await api.getLastEpisode(
+          series._links.previousepisode.href.split("episodes/")[1]
+        );
+        series = {
+          ...series,
+          lastEpisode: { ...lastEpisode }
+        };
         commit("SET_ERRORS", []);
-        commit("SET_SERIES", list);
+        commit("SET_SERIES", series);
       } catch (error) {
         commit("SET_ERRORS", error);
       } finally {
