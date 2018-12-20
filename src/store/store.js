@@ -9,7 +9,7 @@ export default new Vuex.Store({
     series: [],
     favourites: [],
     loading: false,
-    errors: []
+    errors: {}
   },
   mutations: {
     SET_LOADING(state, value) {
@@ -43,7 +43,7 @@ export default new Vuex.Store({
         commit("SET_ERRORS", []);
         commit("SET_SERIES", series);
       } catch (error) {
-        commit("SET_ERRORS", error);
+        commit("SET_ERRORS", error.response);
       } finally {
         commit("SET_LOADING", false);
       }

@@ -1,10 +1,13 @@
 <template>
-  <input
-    type="text"
-    :placeholder="placeholder"
-    @keyup.enter="triggerSearch"
-    class="input"
-  />
+  <div class="field">
+    <input
+      type="text"
+      :placeholder="placeholder"
+      @keyup.enter="triggerSearch"
+      :class="hasError"
+    />
+    <p v-if="errorMessage.statusText">Oops! {{ errorMessage.statusText }}</p>
+  </div>
 </template>
 
 <script>
@@ -17,10 +20,19 @@ export default {
       default: "Search or favourite a TV series"
     }
   },
+  computed: {
+    hasError() {
+      return Object.keys(this.$store.state.errors).length > 0
+        ? "input is-danger"
+        : "input";
+    },
+    errorMessage() {
+      return this.$store.state.errors;
+    }
+  },
   methods: {
     triggerSearch(event) {
       this.$store.dispatch("fetchSeries", event.currentTarget.value);
-      event.currentTarget.value = "";
     }
   }
 };
@@ -28,18 +40,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+p {
+  margin-top: 15px;
 }
 </style>
