@@ -19,7 +19,7 @@
         <div class="card-content">
           <div class="content">
             <p>Last Episode</p>
-            <a :href="item.lastEpisode.url" v-if="item.lastEpisode.url">
+            <a :href="item.lastEpisode.url" v-if="item.lastEpisode">
               <figure class="image is-128x128">
                 <img
                   class="thumbnail"
